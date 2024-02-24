@@ -5,11 +5,21 @@ export type TABLE_STRUCTURE_ELEMENT = {
     children?: {value: string, title: string}[]
 };
 
+export type TABLE_DATA_ELEMENT = {
+    name: string;
+    model: string;
+    maxSpeed: string;
+    power: string;
+    weight: string;
+}
+
 export type FILTER_STRUCTURE_ELEMENT = {
     id: string,
     name: string,
     label: string,
-    defaultValue?: string | number | boolean
+    suffix?: string,
+    defaultValue?: string | number | boolean,
+    type: 'input' | 'inputNumber' | 'boolean'
 };
 
 export type FORM_STRUCTURE_ELEMENT = {

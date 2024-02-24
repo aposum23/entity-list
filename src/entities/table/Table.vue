@@ -1,6 +1,7 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
-import {TABLE_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {TABLE_DATA_ELEMENT, TABLE_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {tableData} from "@/entities/table/structures/tableData";
 
 export default defineComponent({
   name: "Table",
@@ -12,17 +13,19 @@ export default defineComponent({
   },
   data() {
     return {
-      tableData: [
-        {
-          name: 'BMW',
-          model: 'M3 Competition',
-          maxSpeed: '250',
-          power: '510',
-          weight: '1805'
-        }
-      ]
     }
   },
+  computed: {
+    prepearedData: () => {
+      let data: TABLE_DATA_ELEMENT[] = [];
+      for (let i = 1; i < 6; i++) {
+        tableData.map((tableElement: TABLE_DATA_ELEMENT) => {
+          data.push({...tableElement, name: `${tableElement.name} #${i}`})
+        })
+      }
+      return data
+    },
+  }
 })
 </script>
 
@@ -30,7 +33,7 @@ export default defineComponent({
   <v-container>
     <v-data-table
         :headers="tableStructure"
-        :items="tableData"
+        :items="prepearedData"
         item-key="name"
         fixed-header
         height="500"

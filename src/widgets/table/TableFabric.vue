@@ -6,11 +6,12 @@ import {
   FORM_STRUCTURE_ELEMENT,
   TABLE_STRUCTURE_ELEMENT
 } from "@/shared/structures/tableTypes";
-import Table from "@/entities/Table.vue";
+import Table from "@/entities/table/Table.vue";
+import FiltersBlock from "@/features/FiltersBlock.vue";
 
 export default defineComponent({
   name: "TableFabric",
-  components: {Table},
+  components: {FiltersBlock, Table},
   props: {
     tableStructure: {
       required: true,
@@ -34,6 +35,11 @@ export default defineComponent({
 
 <template>
   <v-container>
+    <v-row>
+      <v-col cols="12" v-if="filtersStructure">
+        <FiltersBlock :filters-structure="filtersStructure"/>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols="12">
         <Table :table-structure="tableStructure"/>
