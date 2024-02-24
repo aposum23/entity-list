@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import EntityView from "@/pages/EntityView.vue";
+import EntityView from "@/pages/entity/EntityView.vue";
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [

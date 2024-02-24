@@ -9,12 +9,25 @@ export default defineComponent({
       required: true,
       type: Object as PropType<FILTER_STRUCTURE_ELEMENT>
     }
+  },
+  emits: {
+    'data-changed': Object
+  },
+  data(){
+    return {
+      modelValue: false
+    }
+  },
+  watch: {
+    modelValue(newValue) {
+      this.$emit('data-changed', {[this.filterData.id]: newValue})
+    }
   }
 })
 </script>
 
 <template>
-  <v-checkbox :label="filterData.label"></v-checkbox></template>
+  <v-checkbox v-model="modelValue" :label="filterData.label"></v-checkbox></template>
 <style scoped>
 
 </style>

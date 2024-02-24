@@ -9,23 +9,16 @@ export default defineComponent({
     tableStructure: {
       required: true,
       type: Array as PropType<TABLE_STRUCTURE_ELEMENT[]>
+    },
+    tableData: {
+      required: false,
+      type: Array as PropType<TABLE_DATA_ELEMENT[]>
     }
   },
   data() {
     return {
     }
   },
-  computed: {
-    prepearedData: () => {
-      let data: TABLE_DATA_ELEMENT[] = [];
-      for (let i = 1; i < 6; i++) {
-        tableData.map((tableElement: TABLE_DATA_ELEMENT) => {
-          data.push({...tableElement, name: `${tableElement.name} #${i}`})
-        })
-      }
-      return data
-    },
-  }
 })
 </script>
 
@@ -33,7 +26,7 @@ export default defineComponent({
   <v-container>
     <v-data-table
         :headers="tableStructure"
-        :items="prepearedData"
+        :items="tableData && tableData"
         item-key="name"
         fixed-header
         height="500"
