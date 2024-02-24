@@ -1,10 +1,12 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
-import TableFabric from "@/widgets/table/TableFabric.vue";
+import TableFabric from "@/widgets/TableFabric.vue";
 import {FILTER_STRUCTURE_ELEMENT, TABLE_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {getEntityData} from "@/pages/entity/api/getData";
 
 export default defineComponent({
   name: "EntityView",
+  methods: {getEntityData},
   components: {TableFabric},
   data(){
     return {
@@ -35,19 +37,19 @@ export default defineComponent({
           id: 'name',
           name: 'Марка',
           label: 'Марка',
-          type: 'input'
+          type: 'text'
         },
         {
           id: 'model',
           name: 'Модель',
           label: 'Модель',
-          type: 'input'
+          type: 'text'
         },
         {
           id: 'maxSpeed',
           name: 'Максимальная скорость',
           label: 'Максимальная скорость',
-          type: 'inputNumber',
+          type: 'number',
           suffix: 'км/ч'
         }
       ] as FILTER_STRUCTURE_ELEMENT[]
@@ -63,6 +65,7 @@ export default defineComponent({
         <TableFabric
             :table-structure="tableStructure"
             :filters-structure="filtersStructure"
+            :get-request-function="getEntityData"
         />
       </v-col>
     </v-row>

@@ -8,9 +8,9 @@ export type TABLE_STRUCTURE_ELEMENT = {
 export type TABLE_DATA_ELEMENT = {
     name: string;
     model: string;
-    maxSpeed: string;
-    power: string;
-    weight: string;
+    maxSpeed: number;
+    power: number;
+    weight: number;
 }
 
 export type FILTER_STRUCTURE_ELEMENT = {
@@ -19,7 +19,7 @@ export type FILTER_STRUCTURE_ELEMENT = {
     label: string,
     suffix?: string,
     defaultValue?: string | number | boolean,
-    type: 'input' | 'inputNumber' | 'boolean'
+    type: 'text' | 'number' | 'boolean'
 };
 
 export type FORM_STRUCTURE_ELEMENT = {
