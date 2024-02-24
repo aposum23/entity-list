@@ -1,26 +1,14 @@
 <template>
   <v-app>
     <HeaderWidgets/>
-    <v-main>
-      <HelloWorld/>
+    <v-main transition="scroll-y-transition">
+      <router-view/>
     </v-main>
   </v-app>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/pages/HelloWorld.vue';
+<style lang="scss">
+</style>
+<script setup lang="ts">
 import HeaderWidgets from "@/widgets/HeaderWidgets.vue";
-
-export default Vue.extend({
-  name: 'App',
-
-  components: {
-    HeaderWidgets,
-    HelloWorld,
-  },
-
-  data: () => ({
-  }),
-});
 </script>
