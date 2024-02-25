@@ -6,6 +6,7 @@ export type TABLE_STRUCTURE_ELEMENT = {
 };
 
 export type TABLE_DATA_ELEMENT = {
+    id: number;
     name: string;
     model: string;
     maxSpeed: number;
@@ -26,7 +27,8 @@ export type FORM_STRUCTURE_ELEMENT = {
     id: string,
     name: string,
     label: string,
-    type: 'input' | 'inputNumber' | 'boolean'
+    suffix?: string,
+    type: 'text' | 'number' | 'boolean'
 };
 
 export type CRUD_TYPE = 'create' | 'delete' | 'update';

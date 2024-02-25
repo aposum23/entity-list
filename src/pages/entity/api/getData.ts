@@ -1,9 +1,9 @@
-import {prepearedData} from "@/pages/entity/api/exampleData";
 import {TABLE_DATA_ELEMENT} from "@/shared/structures/tableTypes";
 import { filter, isEmpty } from "lodash/fp";
+import {tableData} from "@/entities/table/structures/tableData";
 
 export const getEntityData = (filters: {[K:string]: string | number | boolean}) => {
-    const data = prepearedData();
+    const data = tableData;
 
     const filterComparison = (element: TABLE_DATA_ELEMENT) => {
         let flag = true;
@@ -11,7 +11,7 @@ export const getEntityData = (filters: {[K:string]: string | number | boolean}) 
         let i = 0;
         while (flag && i < filtersKeys.length) {
             const key = filtersKeys[i];
-            flag = flag = (element as any)[key].includes(filters[key]) || (element as any)[key] === filters[key];
+            flag = (element as any)[key].toLowerCase().includes(filters[key]) || (element as any)[key] === filters[key];
             i++;
         }
         return flag

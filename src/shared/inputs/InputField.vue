@@ -1,13 +1,13 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
-import {FILTER_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {FILTER_STRUCTURE_ELEMENT, FORM_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
 
 export default defineComponent({
   name: "InputField",
   props: {
-    filterData: {
+    fieldStructure: {
       required: true,
-      type: Object as PropType<FILTER_STRUCTURE_ELEMENT>
+      type: Object as PropType<FILTER_STRUCTURE_ELEMENT | FORM_STRUCTURE_ELEMENT>
     }
   },
   emits: {
@@ -20,7 +20,7 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.filterData.id]: newValue})
+      this.$emit('data-changed', {[this.fieldStructure.id]: typeof newValue === "string" ? newValue.toLowerCase() : newValue})
     }
   }
 })
@@ -29,10 +29,10 @@ export default defineComponent({
 <template>
   <v-text-field
       v-model="modelValue"
-      :label="filterData.label"
+      :label="fieldStructure.label"
       variant="outlined"
-      :suffix="filterData.suffix"
-      :type="filterData.type"
+      :suffix="fieldStructure.suffix"
+      :type="fieldStructure.type"
   ></v-text-field>
 </template>
 

@@ -1,13 +1,13 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
-import {FILTER_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {FILTER_STRUCTURE_ELEMENT, FORM_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
 
 export default defineComponent({
   name: "InputBoolean",
   props: {
-    filterData: {
+    fieldStructure: {
       required: true,
-      type: Object as PropType<FILTER_STRUCTURE_ELEMENT>
+      type: Object as PropType<FILTER_STRUCTURE_ELEMENT | FORM_STRUCTURE_ELEMENT>
     }
   },
   emits: {
@@ -20,14 +20,14 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.filterData.id]: newValue})
+      this.$emit('data-changed', {[this.fieldStructure.id]: newValue})
     }
   }
 })
 </script>
 
 <template>
-  <v-checkbox v-model="modelValue" :label="filterData.label"></v-checkbox></template>
+  <v-checkbox v-model="modelValue" :label="fieldStructure.label"></v-checkbox></template>
 <style scoped>
 
 </style>
