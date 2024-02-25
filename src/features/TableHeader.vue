@@ -4,7 +4,7 @@ import {CRUD_TYPE, FILTER_STRUCTURE_ELEMENT, FORM_STRUCTURE_ELEMENT} from "@/sha
 import InputField from "@/shared/inputs/InputField.vue";
 import InputBoolean from "@/shared/inputs/InputBoolean.vue";
 import {some, isEmpty} from 'lodash/fp';
-import CreateDialog from "@/features/CreateDialog.vue";
+import CreateDialog from "@/entities/CreateDialog.vue";
 
 export default defineComponent({
   name: "FiltersBlock",
@@ -28,12 +28,15 @@ export default defineComponent({
     }
   },
   emits: {
-    'filter-data': Object
+    'filter-data': Object,
+    'update-data': Boolean
   },
   data(){
     return {
       filters: {} as {[K:string]: string | number | boolean},
-      openDialog: false
+      openDialog: false,
+      createStatus: true,
+      showAlert: false,
     }
   },
   methods: {
@@ -48,8 +51,15 @@ export default defineComponent({
     filterData(){
       this.$emit('filter-data', this.filters);
     },
-    openCloseCreateDialog(){
+    openCloseCreateDialog(updateData: boolean){
+      updateData && this.$emit('update-data', updateData);
+      this.createStatus = updateData;
+      updateData && this.openAlert();
       this.openDialog = !this.openDialog;
+    },
+    openAlert(){
+      this.showAlert = true;
+      setTimeout(() => this.showAlert = false, 3000);
     }
   }
 })
@@ -74,11 +84,11 @@ export default defineComponent({
     </v-row>
     <v-row justify="end">
       <v-col cols="2" v-if="crudTypes && crudTypes.includes('create')">
-        <v-btn variant="tonal" @click="openCloseCreateDialog">
+        <v-btn variant="tonal" @click="openCloseCreateDialog(false)">
           Создать
         </v-btn>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="3">
         <v-btn variant="tonal" color="primary" @click="filterData">
           Отфильтровать
         </v-btn>
@@ -90,6 +100,13 @@ export default defineComponent({
         :form-structure="formStructure"
         @close-dialog="openCloseCreateDialog"
     />
+    <v-alert
+      v-model="showAlert"
+      :type="createStatus ? 'success' : 'error'"
+      style="position: fixed; bottom: 0; right: 0"
+    >
+      {{`Запись ${createStatus ? 'создана' : 'не создана'}`}}
+    </v-alert>
   </v-container>
 </template>
 

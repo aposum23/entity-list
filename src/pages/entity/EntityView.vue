@@ -9,10 +9,11 @@ import {
 } from "@/shared/structures/tableTypes";
 import {getEntityData} from "@/pages/entity/api/getData";
 import {deleteData} from "@/pages/entity/api/deleteData";
+import {createData} from "@/pages/entity/api/createData";
 
 export default defineComponent({
   name: "EntityView",
-  methods: {deleteData, getEntityData},
+  methods: {createData, deleteData, getEntityData},
   components: {TableFabric},
   data(){
     return {
@@ -114,6 +115,7 @@ export default defineComponent({
             :form-structure="formStructure"
             :get-request-function="getEntityData"
             :delete-request-function="deleteData"
+            :create-request-function="createData"
             :crud-types="crudTypes"
         />
       </v-col>

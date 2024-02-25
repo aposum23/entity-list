@@ -20,7 +20,7 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.fieldStructure.id]: typeof newValue === "string" ? newValue.toLowerCase() : newValue})
+      this.$emit('data-changed', {[this.fieldStructure.id]: (this.fieldStructure.type === 'text' ? newValue.toLowerCase() : Number(newValue))})
     }
   }
 })

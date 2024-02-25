@@ -4,7 +4,6 @@ import {tableData} from "@/entities/table/structures/tableData";
 
 export const getEntityData = (filters: {[K:string]: string | number | boolean}) => {
     const data = tableData;
-
     const filterComparison = (element: TABLE_DATA_ELEMENT) => {
         let flag = true;
         const filtersKeys = Object.keys(filters);

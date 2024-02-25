@@ -3,7 +3,8 @@ import {defineComponent, PropType} from 'vue'
 import {
   CRUD_TYPE,
   FILTER_STRUCTURE_ELEMENT,
-  FORM_STRUCTURE_ELEMENT, TABLE_DATA_ELEMENT,
+  FORM_STRUCTURE_ELEMENT,
+  TABLE_DATA_ELEMENT,
   TABLE_STRUCTURE_ELEMENT
 } from "@/shared/structures/tableTypes";
 import Table from "@/entities/table/Table.vue";
@@ -19,6 +20,10 @@ export default defineComponent({
       type: Function
     },
     deleteRequestFunction: {
+      required: false,
+      type: Function
+    },
+    createRequestFunction: {
       required: false,
       type: Function
     },
@@ -60,7 +65,6 @@ export default defineComponent({
   },
   methods: {
     filterData(e: {[K:string]: string | number | boolean}){
-      console.log('e', Object.keys(e));
       this.filters = {...e};
     }
   }
@@ -75,7 +79,9 @@ export default defineComponent({
             :filters-structure="filtersStructure"
             :crud-types="crudTypes"
             :form-structure="formStructure"
+            :create-request-function="createRequestFunction"
             @filter-data="filterData"
+            @update-data="(e) => {dataUpdate = e}"
         />
       </v-col>
     </v-row>
@@ -86,6 +92,7 @@ export default defineComponent({
             :table-data="tableData"
             :crud-types="crudTypes"
             :delete-request-function="deleteRequestFunction"
+            :key="dataUpdate"
             @update-data="(e) => {dataUpdate = e}"
         />
       </v-col>

@@ -32,13 +32,20 @@ export default defineComponent({
   },
   methods: {
     dataChanged(e: {[K:string]: string | number | boolean}) {
-      if (!some(isEmpty, e))
+      const emptyDataCheck = (data: any) => {
+        return !data;
+      }
+      if (!some(emptyDataCheck, e))
         this.formData = {...this.formData, ...e};
       else {
         const formKey = Object.keys(e)[0]
         delete this.formData[formKey];
       }
     },
+    closeDialog(updateData: boolean){
+      if (updateData && this.createRequestFunction) this.createRequestFunction(this.formData);
+      this.$emit('close-dialog', updateData);
+    }
   }
 })
 </script>
@@ -67,10 +74,10 @@ export default defineComponent({
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions class="justify-end">
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+        <v-btn color="blue-darken-1" variant="text" @click="closeDialog(false)">
           Закрыть
         </v-btn>
-        <v-btn color="primary" variant="text" @click="dialog = false">
+        <v-btn color="primary" variant="text" @click="closeDialog(true)">
           Создать
         </v-btn>
       </v-card-actions>

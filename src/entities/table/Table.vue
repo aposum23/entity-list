@@ -1,7 +1,8 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
 import {CRUD_TYPE, TABLE_DATA_ELEMENT, TABLE_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
-import ConfirmDialog from "@/features/ConfirmDialog.vue";
+import ConfirmDialog from "@/entities/ConfirmDialog.vue";
+import {some} from "lodash/fp";
 
 export default defineComponent({
   name: "Table",
@@ -31,14 +32,16 @@ export default defineComponent({
     return {
       confirmDelete: false,
       itemToDelete: {} as TABLE_DATA_ELEMENT,
-
     }
   },
   computed: {
-    tableStructurePrepeared(): TABLE_STRUCTURE_ELEMENT[] {
-      let prepearedStructure = this.tableStructure;
-      if (this.crudTypes && this.crudTypes.includes('delete'))
-        prepearedStructure.unshift({value: 'actions', text: ''})
+    tableStructurePrepared(): TABLE_STRUCTURE_ELEMENT[] {
+      let preparedStructure = this.tableStructure;
+      const isElementExist = (element: TABLE_STRUCTURE_ELEMENT) => {
+        return element.value === 'actions';
+      }
+      if (this.crudTypes && this.crudTypes.includes('delete') && !some(isElementExist, preparedStructure))
+        preparedStructure.unshift({value: 'actions', text: ''})
       return this.tableStructure;
     }
   },
@@ -61,8 +64,8 @@ export default defineComponent({
 <template>
   <v-container>
     <v-data-table
-        :headers="tableStructurePrepeared"
-        :items="tableData && tableData"
+        :headers="tableStructurePrepared"
+        :items="tableData"
         item-key="name"
         fixed-header
         height="400"
