@@ -1,19 +1,21 @@
 # entity-list
 
-## Project setup
+При реализации архитектуры приложения, я старался придерживаться инструкций стандарта <a href="https://feature-sliced.design/ru/docs/get-started/overview" target="_black">FSD</a></br>
+Данное приложение выполнено с использованием следующих технологий: Vue 2, Webpack, Vuetify, lodash</br>
+Автор: <a href="https://t.me/MishaDuhno" target="_blank">Духно Михаил</a>
+
+## Инструкция запуска:
+### Установка зависимостей
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Сборка версии для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Сборка версии для продакшена
 ```
 npm run build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
