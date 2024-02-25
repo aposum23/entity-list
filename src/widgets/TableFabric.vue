@@ -3,18 +3,28 @@ import {defineComponent, PropType} from 'vue'
 import {
   CRUD_TYPE,
   FILTER_STRUCTURE_ELEMENT,
-  FORM_STRUCTURE_ELEMENT, TABLE_DATA_ELEMENT,
+  FORM_STRUCTURE_ELEMENT,
+  TABLE_DATA_ELEMENT,
   TABLE_STRUCTURE_ELEMENT
 } from "@/shared/structures/tableTypes";
 import Table from "@/entities/table/Table.vue";
-import FiltersBlock from "@/features/FiltersBlock.vue";
+import TableHeader from "@/features/TableHeader.vue";
+import {prepareData} from "@/pages/entity/api/exampleData";
 
 export default defineComponent({
   name: "TableFabric",
-  components: {FiltersBlock, Table},
+  components: {TableHeader, Table},
   props: {
     getRequestFunction: {
       required: true,
+      type: Function
+    },
+    deleteRequestFunction: {
+      required: false,
+      type: Function
+    },
+    createRequestFunction: {
+      required: false,
       type: Function
     },
     tableStructure: {
@@ -36,17 +46,25 @@ export default defineComponent({
   },
   data(){
     return {
-      filters: {}
+      filters: {},
+      dataUpdate: true,
+      dataGenerated: false, // Это нужно только чтобы сгенерировать разово данные для демонстрации
     }
   },
   computed: {
     tableData: function(): TABLE_DATA_ELEMENT[] {
+      // Это нужно только чтобы сгенерировать разово данные для демонстрации
+      if (!this.dataGenerated) {
+        prepareData();
+        this.dataGenerated = true;
+      }
+      // --------------------------------------------------------------------
+      if (this.dataUpdate) this.dataUpdate = false;
       return this.getRequestFunction(this.filters);
     }
   },
   methods: {
     filterData(e: {[K:string]: string | number | boolean}){
-      console.log('e', Object.keys(e));
       this.filters = {...e};
     }
   }
@@ -57,12 +75,26 @@ export default defineComponent({
   <v-container>
     <v-row>
       <v-col cols="12" v-if="filtersStructure">
-        <FiltersBlock :filters-structure="filtersStructure" @filter-data="filterData"/>
+        <TableHeader
+            :filters-structure="filtersStructure"
+            :crud-types="crudTypes"
+            :form-structure="formStructure"
+            :create-request-function="createRequestFunction"
+            @filter-data="filterData"
+            @update-data="(e) => {dataUpdate = e}"
+        />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <Table :table-structure="tableStructure" :table-data="tableData"/>
+        <Table
+            :table-structure="tableStructure"
+            :table-data="tableData"
+            :crud-types="crudTypes"
+            :delete-request-function="deleteRequestFunction"
+            :key="dataUpdate"
+            @update-data="(e) => {dataUpdate = e}"
+        />
       </v-col>
     </v-row>
   </v-container>

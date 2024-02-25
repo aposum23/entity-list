@@ -1,16 +1,27 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import TableFabric from "@/widgets/TableFabric.vue";
-import {FILTER_STRUCTURE_ELEMENT, TABLE_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
+import {
+  CRUD_TYPE,
+  FILTER_STRUCTURE_ELEMENT,
+  FORM_STRUCTURE_ELEMENT,
+  TABLE_STRUCTURE_ELEMENT
+} from "@/shared/structures/tableTypes";
 import {getEntityData} from "@/pages/entity/api/getData";
+import {deleteData} from "@/pages/entity/api/deleteData";
+import {createData} from "@/pages/entity/api/createData";
 
 export default defineComponent({
   name: "EntityView",
-  methods: {getEntityData},
+  methods: {createData, deleteData, getEntityData},
   components: {TableFabric},
   data(){
     return {
       tableStructure: [
+        {
+          value: 'id',
+          text: 'Код',
+        },
         {
           value: 'name',
           text: 'Марка',
@@ -52,9 +63,45 @@ export default defineComponent({
           type: 'number',
           suffix: 'км/ч'
         }
-      ] as FILTER_STRUCTURE_ELEMENT[]
+      ] as FILTER_STRUCTURE_ELEMENT[],
+      formStructure: [
+        {
+          id: 'name',
+          name: 'Марка',
+          label: 'Марка',
+          type: 'text'
+        },
+        {
+          id: 'model',
+          name: 'Модель',
+          label: 'Модель',
+          type: 'text'
+        },
+        {
+          id: 'maxSpeed',
+          name: 'Максимальная скорость',
+          label: 'Максимальная скорость',
+          suffix: 'км/ч',
+          type: 'number'
+        },
+        {
+          id: 'power',
+          name: 'Мощность',
+          label: 'Мощность',
+          suffix: 'л.с.',
+          type: 'number'
+        },
+        {
+          id: 'weight',
+          name: 'Снаряженная масса',
+          label: 'Снаряженная масса',
+          suffix: 'кг',
+          type: 'number'
+        }
+      ] as FORM_STRUCTURE_ELEMENT[],
+      crudTypes: ['create', 'delete'] as CRUD_TYPE[]
     }
-  }
+  },
 })
 </script>
 
@@ -65,7 +112,11 @@ export default defineComponent({
         <TableFabric
             :table-structure="tableStructure"
             :filters-structure="filtersStructure"
+            :form-structure="formStructure"
             :get-request-function="getEntityData"
+            :delete-request-function="deleteData"
+            :create-request-function="createData"
+            :crud-types="crudTypes"
         />
       </v-col>
     </v-row>

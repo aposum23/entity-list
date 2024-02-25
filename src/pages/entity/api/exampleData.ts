@@ -1,12 +1,16 @@
 import {TABLE_DATA_ELEMENT} from "@/shared/structures/tableTypes";
-import {tableData} from "@/entities/table/structures/tableData";
+import {changeTableData, tableData} from "@/entities/table/structures/tableData";
 
-export const prepearedData = () => {
+export const prepareData = () => {
     let data: TABLE_DATA_ELEMENT[] = [];
+    let newId = tableData[0].id;
     for (let i = 1; i < 6; i++) {
         tableData.map((tableElement: TABLE_DATA_ELEMENT) => {
-            data.push({...tableElement, name: `${tableElement.name} #${i}`})
+
+            data.push({...tableElement, name: `${tableElement.name.split('#')[0]} #${i}`, id: newId})
+            newId++;
         })
     }
-    return data;
+    changeTableData(data);
+    return tableData
 }
