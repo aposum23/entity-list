@@ -3,7 +3,7 @@ import {defineComponent, PropType} from 'vue'
 import {FILTER_STRUCTURE_ELEMENT, FORM_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
 
 export default defineComponent({
-  name: "InputField",
+  name: "InputSelect",
   props: {
     fieldStructure: {
       required: true,
@@ -15,25 +15,24 @@ export default defineComponent({
   },
   data(){
     return {
-      modelValue: undefined,
+      modelValue: false,
     }
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.fieldStructure.id]: (this.fieldStructure.type === 'text' ? newValue : Number(newValue))})
+      this.$emit('data-changed', {[this.fieldStructure.id]: newValue})
     }
   }
 })
 </script>
 
 <template>
-  <v-text-field
+  <v-select
+      clearable
       v-model="modelValue"
       :label="fieldStructure.label"
-      variant="outlined"
-      :suffix="fieldStructure.suffix"
-      :type="fieldStructure.type"
-  ></v-text-field>
+      :items="fieldStructure.items"
+  ></v-select>
 </template>
 
 <style scoped>

@@ -20,14 +20,24 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.fieldStructure.id]: newValue})
+      this.$emit('data-changed', {[this.fieldStructure.id]: newValue ? 'Да' : 'Нет'})
     }
+  },
+  mounted(){
+    if (this.fieldStructure.defaultValue && typeof this.fieldStructure.defaultValue === 'boolean')
+      this.modelValue = this.fieldStructure.defaultValue
+    this.$emit('data-changed', {[this.fieldStructure.id]: this.modelValue ? 'Да' : 'Нет'})
   }
 })
 </script>
 
 <template>
-  <v-checkbox v-model="modelValue" :label="fieldStructure.label"></v-checkbox></template>
+  <v-checkbox v-model="modelValue">
+    <template v-slot:label>
+      {{fieldStructure.label}}
+    </template>
+  </v-checkbox>
+</template>
 <style scoped>
 
 </style>

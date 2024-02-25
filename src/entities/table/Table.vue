@@ -69,6 +69,8 @@ export default defineComponent({
         item-key="name"
         fixed-header
         height="400"
+        :items-per-page="12"
+        :footer-props="{ 'items-per-page-options': [12, 24, 48] }"
         styles="parent-style"
     >
       <template v-slot:item.actions="{ item }" v-if="crudTypes && crudTypes.includes('delete')">
@@ -78,6 +80,14 @@ export default defineComponent({
         >
           delete
         </v-icon>
+      </template>
+      <template v-slot:item="{ item, headers }">
+        <tr>
+          <td v-for="header in headers">
+            <span v-if="!header.type">{{item[header.value]}}</span>
+            <a :href="item[header.value]" v-if="header.type && header.type === 'url'" target="_blank">Ссылка</a>
+          </td>
+        </tr>
       </template>
     </v-data-table>
     <ConfirmDialog operation-type="delete" :dialog="confirmDelete" @close-dialog="closeDeleteConfirmation"/>

@@ -41,6 +41,19 @@ export default defineComponent({
         {
           value: 'weight',
           text: 'Снаряженная масса, кг'
+        },
+        {
+          value: 'type',
+          text: 'Тип кузова'
+        },
+        {
+          value: 'inProduction',
+          text: 'Производится'
+        },
+        {
+          value: 'imageUrl',
+          text: 'Ссылка на изображение',
+          type: 'url'
         }
       ] as TABLE_STRUCTURE_ELEMENT[],
       filtersStructure: [
@@ -62,6 +75,20 @@ export default defineComponent({
           label: 'Максимальная скорость',
           type: 'number',
           suffix: 'км/ч'
+        },
+        {
+          id: 'type',
+          name: 'Тип кузова',
+          label: 'Тип кузова',
+          items: ['Седан', 'Купе', 'Универсал', 'Хэтчбек', 'Кабриолет', 'Внедорожник'],
+          type: 'select'
+        },
+        {
+          id: 'inProduction',
+          name: 'Производится',
+          label: 'Производится',
+          items: ['Да', 'Нет'],
+          type: 'select'
         }
       ] as FILTER_STRUCTURE_ELEMENT[],
       formStructure: [
@@ -97,6 +124,26 @@ export default defineComponent({
           label: 'Снаряженная масса',
           suffix: 'кг',
           type: 'number'
+        },
+        {
+          id: 'type',
+          name: 'Тип кузова',
+          label: 'Тип кузова',
+          items: ['Седан', 'Купе', 'Универсал', 'Хэтчбек', 'Кабриолет', 'Внедорожник'],
+          type: 'select'
+        },
+        {
+          id: 'inProduction',
+          name: 'Производится',
+          label: 'Производится',
+          defaultValue: true,
+          type: 'boolean'
+        },
+        {
+          id: 'imageUrl',
+          name: 'Ссылка на картинку',
+          label: 'Ссылка на картинку',
+          type: 'imageUrl'
         }
       ] as FORM_STRUCTURE_ELEMENT[],
       crudTypes: ['create', 'delete'] as CRUD_TYPE[]
