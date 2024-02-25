@@ -20,7 +20,7 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue) {
-      this.$emit('data-changed', {[this.fieldStructure.id]: (this.fieldStructure.type === 'text' ? newValue : Number(newValue))})
+      this.$emit('data-changed', {[this.fieldStructure.id]: newValue})
     }
   }
 })
@@ -31,8 +31,6 @@ export default defineComponent({
       v-model="modelValue"
       :label="fieldStructure.label"
       variant="outlined"
-      :suffix="fieldStructure.suffix"
-      :type="fieldStructure.type"
   ></v-text-field>
 </template>
 

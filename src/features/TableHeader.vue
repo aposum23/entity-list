@@ -5,10 +5,11 @@ import InputField from "@/shared/inputs/InputField.vue";
 import InputBoolean from "@/shared/inputs/InputBoolean.vue";
 import {some, isEmpty} from 'lodash/fp';
 import CreateDialog from "@/entities/CreateDialog.vue";
+import InputSelect from "@/shared/inputs/InputSelect.vue";
 
 export default defineComponent({
   name: "FiltersBlock",
-  components: {CreateDialog, InputBoolean, InputField},
+  components: {InputSelect, CreateDialog, InputBoolean, InputField},
   props: {
     filtersStructure: {
       required: true,
@@ -78,6 +79,9 @@ export default defineComponent({
           </template>
           <template v-else-if="filter.type === 'boolean'">
             <InputBoolean :field-structure="filter" @data-changed="dataChanged"/>
+          </template>
+          <template v-else-if="filter.type === 'select'">
+            <InputSelect :field-structure="filter" @data-changed="dataChanged"/>
           </template>
         </v-col>
       </template>

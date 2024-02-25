@@ -3,11 +3,13 @@ import {defineComponent, PropType} from 'vue'
 import InputField from "@/shared/inputs/InputField.vue";
 import {FORM_STRUCTURE_ELEMENT} from "@/shared/structures/tableTypes";
 import InputBoolean from "@/shared/inputs/InputBoolean.vue";
-import {isEmpty, some} from "lodash/fp";
+import {some} from "lodash/fp";
+import InputSelect from "@/shared/inputs/InputSelect.vue";
+import InputImage from "@/shared/inputs/InputImage.vue";
 
 export default defineComponent({
   name: "CreateDialog",
-  components: {InputBoolean, InputField},
+  components: {InputSelect, InputBoolean, InputField, InputImage},
   props: {
     createRequestFunction: {
       required: false,
@@ -67,6 +69,12 @@ export default defineComponent({
               </template>
               <template v-else-if="element.type === 'boolean'">
                 <InputBoolean :field-structure="element" @data-changed="dataChanged"/>
+              </template>
+              <template v-else-if="element.type === 'select'">
+                <InputSelect :field-structure="element" @data-changed="dataChanged"/>
+              </template>
+              <template v-else-if="element.type === 'imageUrl'">
+                <InputImage :field-structure="element" @data-changed="dataChanged"/>
               </template>
             </v-col>
           </v-row>

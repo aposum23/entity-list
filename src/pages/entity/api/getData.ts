@@ -10,7 +10,7 @@ export const getEntityData = (filters: {[K:string]: string | number | boolean}) 
         let i = 0;
         while (flag && i < filtersKeys.length) {
             const key = filtersKeys[i];
-            flag = (element as any)[key].toLowerCase().includes(filters[key]) || (element as any)[key] === filters[key];
+            flag = (element as any)[key].includes(filters[key]) || (element as any)[key] === filters[key];
             i++;
         }
         return flag
