@@ -1,9 +1,15 @@
 # entity-list
-
-При реализации архитектуры приложения, я старался придерживаться инструкций стандарта <a href="https://feature-sliced.design/ru/docs/get-started/overview" target="_black">FSD</a></br>
-Данное приложение выполнено с использованием следующих технологий: Vue 2, Webpack, Vuetify, lodash</br>
-Автор: <a href="https://t.me/MishaDuhno" target="_blank">Духно Михаил</a>
-
+<ul>
+  <li>
+    При реализации архитектуры приложения, я старался придерживаться инструкций стандарта <a href="https://feature-sliced.design/ru/docs/get-started/overview" target="_black">FSD</a>.
+  </li>
+  <li>
+    Данное приложение выполнено с использованием следующих технологий: Vue 2, Webpack, Vuetify, lodash.
+  </li>
+  <li>
+    Автор: <a href="https://t.me/MishaDuhno" target="_blank">Духно Михаил</a>.
+  </li>
+</ul>
 ## Инструкция запуска:
 ### Установка зависимостей
 ```
